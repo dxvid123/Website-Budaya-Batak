@@ -1,0 +1,771 @@
+/* ========================================
+   CSS VARIABLES (Custom Properties)
+   ======================================== */
+:root {
+  --primary-color: #8b6f5c; /* Coklat earthy untuk aksen utama */
+  --secondary-color: #d4a59a; /* Terracotta soft untuk highlight */
+  --accent-color: #c9b8a5; /* Beige warm untuk subtitle */
+  --dark-color: #2c2420; /* Dark brown untuk teks utama */
+  --light-color: #f9f5f0; /* Cream light untuk background section */
+  --warm-white: #faf7f2; /* Warm white untuk background body */
+  --text-muted: #6b5b4f; /* Grey brown untuk teks sekunder */
+}
+
+/* ========================================
+   RESET & BASE STYLES
+   ======================================== */
+* {
+  margin: 0; /* Method: Reset margin default browser */
+  padding: 0; /* Method: Reset padding default browser */
+  box-sizing: border-box; /* Method: Padding tidak menambah lebar elemen */
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--warm-white); /* Function: Menggunakan CSS variable */
+  color: var(--dark-color);
+  line-height: 1.7; /* Method: Meningkatkan readability teks */
+  overflow-x: hidden; /* Method: Mencegah scroll horizontal */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+} /* Method: Reset style link */
+ul {
+  list-style: none;
+} /* Method: Hilangkan bullet list */
+img {
+  max-width: 100%;
+  display: block;
+} /* Method: Responsive image */
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+.container {
+  width: 100%;
+  max-width: 1200px; /* Method: Batasi lebar konten */
+  margin: 0 auto; /* Method: Center horizontal */
+  padding: 0 2rem;
+}
+
+.row {
+  display: flex; /* Method: Flexbox layout */
+  flex-wrap: wrap; /* Method: Allow wrap ke baris baru */
+  margin: 0 -1rem;
+}
+
+.row > * {
+  padding: 0 1rem;
+} /* Method: Spacing antar kolom */
+
+/* Grid System (Custom tanpa Bootstrap) */
+.col-lg-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+.col-lg-8 {
+  flex: 0 0 66.666%;
+  max-width: 66.666%;
+}
+.col-md-3 {
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+.col-md-4 {
+  flex: 0 0 33.333%;
+  max-width: 33.333%;
+}
+.col-sm-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+/* Utility helpers */
+.align-items-center {
+  align-items: center;
+}
+.text-center {
+  text-align: center;
+}
+.ps-lg-5 {
+  padding-left: 3rem;
+}
+.mb-4 {
+  margin-bottom: 2rem;
+}
+.mb-lg-0 {
+  margin-bottom: 0;
+}
+
+/* ========================================
+   NAVBAR STYLES
+   ======================================== */
+.navbar {
+  position: fixed; /* Method: Navbar tetap di atas saat scroll */
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem 0;
+  transition: all 0.4s ease; /* Method: Animasi smooth saat perubahan */
+  background: transparent;
+  z-index: 1000; /* Method: Pastikan navbar di atas elemen lain */
+  display: flex;
+  align-items: center;
+}
+
+.navbar.scrolled {
+  background: rgba(
+    249,
+    245,
+    240,
+    0.95
+  ); /* Method: Background semi-transparan */
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05); /* Method: Shadow untuk depth */
+  padding: 1rem 0;
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between; /* Method: Space antara brand dan menu */
+  align-items: center;
+  width: 100%;
+}
+
+.navbar-brand {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--dark-color);
+  letter-spacing: 1px; /* Method: Jarak antar huruf */
+}
+
+/* Hamburger Menu (Mobile) */
+.navbar-toggle {
+  display: none; /* Method: Hidden di desktop */
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 5px;
+}
+
+.navbar-toggle span {
+  width: 25px;
+  height: 3px;
+  background: var(--dark-color);
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+.navbar-nav {
+  display: flex;
+  gap: 2rem; /* Method: Jarak antar item menu */
+  margin-left: auto; /* Method: Push menu ke kanan */
+}
+
+.nav-link {
+  color: var(--dark-color);
+  font-weight: 500;
+  font-size: 0.95rem;
+  position: relative;
+  transition: color 0.3s ease;
+  padding: 0.5rem 0;
+}
+
+/* Hover Effect dengan Pseudo-element */
+.nav-link::after {
+  content: ""; /* Method: Membuat elemen pseudo */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0; /* Method: Mulai dari lebar 0 */
+  height: 2px;
+  background: var(--secondary-color);
+  transition: width 0.3s ease; /* Method: Animasi lebar */
+}
+
+.nav-link:hover::after {
+  width: 100%;
+} /* Method: Lebar penuh saat hover */
+.nav-link:hover {
+  color: var(--primary-color);
+}
+
+/* ========================================
+   RESPONSIVE: MOBILE MENU
+   ======================================== */
+@media (max-width: 768px) {
+  /* Method: Media query untuk tablet/mobile */
+  .navbar-toggle {
+    display: flex;
+  } /* Method: Tampilkan hamburger */
+
+  .navbar-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--warm-white);
+    flex-direction: column; /* Method: Menu vertikal di mobile */
+    padding: 1rem 2rem;
+    gap: 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: none; /* Method: Hidden by default */
+  }
+
+  .navbar-nav.active {
+    display: flex;
+  } /* Method: Tampil saat class 'active' */
+
+  .nav-link {
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  /* Full width columns di mobile */
+  .col-lg-6,
+  .col-lg-8,
+  .col-md-3,
+  .col-md-4,
+  .col-sm-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .ps-lg-5 {
+    padding-left: 0;
+    padding-top: 2rem;
+  }
+}
+
+/* ========================================
+   HERO SECTION
+   ======================================== */
+.hero {
+  min-height: 100vh; /* Method: Minimal setinggi viewport */
+  background:
+    linear-gradient(
+      135deg,
+      rgba(139, 111, 92, 0.4) 0%,
+      rgba(212, 165, 154, 0.3) 100%
+    ),
+    url("../assets/hero1.jpg"); /* Method: Background image dengan overlay */
+  background-size: cover; /* Method: Gambar cover seluruh area */
+  background-position: center; /* Method: Pusatkan gambar */
+  background-attachment: fixed; /* Method: Parallax effect */
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 80px;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(
+    44,
+    36,
+    32,
+    0.3
+  ); /* Method: Dark overlay untuk kontras teks */
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2; /* Method: Pastikan konten di atas overlay */
+  color: white;
+  max-width: 600px;
+}
+
+/* Animasi Hero dengan Keyframes */
+.hero-subtitle {
+  font-size: 1.1rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  opacity: 0; /* Method: Mulai transparan */
+  animation: fadeInUp 1s ease forwards 0.5s; /* Method: Trigger animasi */
+  color: var(--accent-color);
+}
+
+.hero-title {
+  font-size: 4.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards 0.7s; /* Method: Delay berbeda tiap elemen */
+}
+
+.hero-description {
+  font-size: 1.2rem;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards 0.9s;
+  font-weight: 300;
+}
+
+/* Custom Button */
+.btn-custom {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: var(--secondary-color);
+  color: white;
+  border-radius: 50px; /* Method: Pill shape button */
+  font-weight: 500;
+  letter-spacing: 1px;
+  transition: all 0.4s ease;
+  border: 2px solid var(--secondary-color);
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards 1.1s;
+}
+
+.btn-custom:hover {
+  background: transparent;
+  transform: translateY(-3px); /* Method: Lift effect saat hover */
+  box-shadow: 0 10px 30px rgba(212, 165, 154, 0.4);
+}
+
+/* Scroll Indicator dengan Animasi Bounce */
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%); /* Method: Center horizontal */
+  color: white;
+  font-size: 2rem;
+  animation: bounce 2s infinite; /* Method: Animasi berulang */
+  z-index: 2;
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+/* ========================================
+   SECTIONS GENERAL
+   ======================================== */
+section {
+  padding: 7rem 0;
+} /* Method: Vertical spacing section */
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-tag {
+  color: var(--secondary-color);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.section-title {
+  font-size: 3rem;
+  color: var(--dark-color);
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto; /* Method: Center text block */
+}
+
+/* ========================================
+   ABOUT SECTION
+   ======================================== */
+.about {
+  background: var(--light-color);
+}
+
+.about-image {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden; /* Method: Clip image di dalam border-radius */
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.5s ease; /* Method: Smooth zoom effect */
+}
+
+.about-image:hover img {
+  transform: scale(1.05); /* Method: Zoom 5% saat hover */
+}
+
+/* Badge Experience (Absolute Positioning) */
+.experience-badge {
+  position: absolute;
+  bottom: -30px;
+  right: -30px;
+  background: var(--secondary-color);
+  color: white;
+  padding: 2rem;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(212, 165, 154, 0.4);
+}
+
+.experience-badge .years {
+  font-size: 3rem;
+  font-weight: 700;
+  font-family: Georgia, "Times New Roman", serif;
+  display: block;
+  line-height: 1;
+}
+
+.experience-badge .text {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.about-content h3 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--dark-color);
+}
+
+.about-content p {
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  font-size: 1.05rem;
+}
+
+.feature-list {
+  padding: 0;
+  margin-top: 2rem;
+}
+
+.feature-list li {
+  padding: 0.8rem 0;
+  color: var(--dark-color);
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Method: Jarak antara icon dan teks */
+}
+
+.feature-list li .icon {
+  color: var(--secondary-color);
+  font-size: 1.2rem;
+}
+
+/* ========================================
+   CULTURE CARDS
+   ======================================== */
+.culture {
+  background: white;
+}
+
+.culture-card {
+  background: var(--warm-white);
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  transition: all 0.4s ease;
+  border: 1px solid rgba(139, 111, 92, 0.1);
+}
+
+.culture-card:hover {
+  transform: translateY(-10px); /* Method: Lift effect saat hover */
+  box-shadow: 0 20px 40px rgba(139, 111, 92, 0.15);
+}
+
+.culture-image {
+  height: 280px;
+  overflow: hidden;
+  position: relative;
+}
+
+.culture-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Method: Crop image tanpa distorsi */
+  transition: transform 0.5s ease;
+}
+
+.culture-card:hover .culture-image img {
+  transform: scale(1.1); /* Method: Zoom image dalam card */
+}
+
+.culture-content {
+  padding: 2rem;
+}
+
+.culture-content h4 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: var(--dark-color);
+}
+
+.culture-content p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.culture-icon {
+  width: 60px;
+  height: 60px;
+  background: var(--secondary-color);
+  border-radius: 50%; /* Method: Circle shape */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Method: Center icon di dalam circle */
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ========================================
+   GALLERY SECTION
+   ======================================== */
+.gallery {
+  background: linear-gradient(to bottom, var(--light-color), white);
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* Overlay Effect */
+.gallery-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(139, 111, 92, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0; /* Method: Hidden by default */
+  transition: opacity 0.4s ease; /* Method: Fade in/out */
+}
+
+.gallery-item:hover .gallery-overlay {
+  opacity: 1;
+} /* Method: Show on hover */
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+.gallery-overlay .icon {
+  color: white;
+  font-size: 2.5rem;
+}
+
+/* ========================================
+   CULINARY SECTION (Dark Theme)
+   ======================================== */
+.culinary {
+  background: var(--dark-color);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative Circle Background */
+.culinary::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 800px;
+  height: 800px;
+  background: rgba(212, 165, 154, 0.05);
+  border-radius: 50%; /* Method: Circle shape untuk dekorasi */
+}
+
+.culinary .section-title {
+  color: white;
+}
+.culinary .section-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.culinary-card {
+  background: rgba(255, 255, 255, 0.05); /* Method: Glass effect */
+  border-radius: 20px;
+  padding: 2.5rem;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s ease;
+  margin-bottom: 2rem;
+}
+
+.culinary-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-5px);
+}
+
+.culinary-icon {
+  width: 80px;
+  height: 80px;
+  background: var(--secondary-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem; /* Method: Center horizontal + spacing bottom */
+  font-size: 2rem;
+}
+
+.culinary-card h4 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.culinary-card p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+footer {
+  background: #1a1614;
+  color: white;
+  padding: 4rem 0 2rem;
+  text-align: center;
+}
+
+.footer-logo {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.footer-text {
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 2rem;
+}
+
+.social-links {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  background: var(--secondary-color);
+  transform: translateY(-3px);
+}
+
+.copyright {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.9rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ========================================
+   ANIMATIONS (Keyframes)
+   ======================================== */
+
+/* fadeInUp: Fade in + slide up */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  from {
+    opacity: 0;
+    transform: translateY(30px); /* Method: Mulai 30px di bawah */
+  }
+}
+
+/* bounce: Animasi panah scroll */
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40% {
+    transform: translateX(-50%) translateY(-10px); /* Method: Naik 10px */
+  }
+  60% {
+    transform: translateX(-50%) translateY(-5px); /* Method: Naik 5px */
+  }
+}
+
+/* ========================================
+   RESPONSIVE MEDIA QUERIES
+   ======================================== */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  } /* Method: Kecilkan font di mobile */
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .experience-badge {
+    right: 20px;
+    bottom: 20px;
+    padding: 1.5rem;
+  }
+  .experience-badge .years {
+    font-size: 2rem;
+  }
+}
+
+/* SVG Icon helper */
+.icon-svg {
+  width: 1em;
+  height: 1em;
+  fill: currentColor; /* Method: Ikuti warna teks parent */
+  display: inline-block;
+  vertical-align: middle;
+}
